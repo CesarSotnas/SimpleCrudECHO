@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"GinEchoCrud/internal/helpers"
 	"GinEchoCrud/internal/interfaces"
-	"GinEchoCrud/internal/utils"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -18,9 +18,9 @@ func NewUserController(userService interfaces.UserRepositoryInterface) *UserCont
 func (c *UserController) GetAllUsers(ctx echo.Context) error {
 	users, err := c.userService.GetAllUsers()
 	if err != nil {
-		return utils.ResponseError(ctx, http.StatusBadRequest, err.Error())
+		return helpers.ResponseError(ctx, http.StatusBadRequest, err.Error())
 
 	}
 
-	return utils.ResponseSuccess(ctx, users)
+	return helpers.ResponseSuccess(ctx, users)
 }
