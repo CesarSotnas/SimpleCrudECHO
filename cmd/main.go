@@ -10,13 +10,13 @@ import (
 )
 
 func main() {
-	hash, _ := bcrypt.GenerateFromPassword([]byte("DEFAULT_PASSWORD"), bcrypt.DefaultCost)
-	fmt.Println(string(hash))
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env")
 	}
+
+	hash, _ := bcrypt.GenerateFromPassword([]byte("DEFAULT_PASSWORD"), bcrypt.DefaultCost)
+	fmt.Println(string(hash))
 
 	database.InitSQLite()
 	server.InitNewServer()
