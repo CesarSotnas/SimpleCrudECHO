@@ -2,11 +2,21 @@ package helpers
 
 import (
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/labstack/gommon/log"
 	"os"
 	"time"
 )
 
-var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
+var jwtSecret []byte
+
+func LoadJWTSecret() {
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		log.Fatal("Secret not defined")
+	}
+
+	jwtSecret = []byte(secret)
+}
 
 func GenerateJWT(userID int) (string, error) {
 	claims := jwt.MapClaims{
@@ -22,6 +32,10 @@ func ParseToken(tokenString string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
 		return jwtSecret, nil
 	})
+	
+	if err != nil || token == nil || !token.Valid {
+		return nil, err
+	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return claims, nil

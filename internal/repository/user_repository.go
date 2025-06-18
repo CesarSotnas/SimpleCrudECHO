@@ -8,8 +8,7 @@ import (
 )
 
 const (
-	retrieveAllUsers    = `SELECT id, name, age, email FROM users`
-	retrieveUserByEmail = `SELECT id, name, age, email, password FROM users WHERE email = ?`
+	retrieveAllUsers = `SELECT id, name, age, email FROM users`
 )
 
 type userRepository struct {
@@ -38,15 +37,4 @@ func (r *userRepository) GetAllUsers() ([]models.User, error) {
 		users = append(users, u)
 	}
 	return users, nil
-}
-
-func (r *userRepository) GetByEmail(email string) (*models.User, error) {
-	row := r.db.QueryRow(retrieveUserByEmail, email)
-
-	var user models.User
-	err := row.Scan(&user.ID, &user.Name, &user.Age, &user.Email, &user.Password)
-	if err != nil {
-		return nil, err
-	}
-	return &user, nil
 }

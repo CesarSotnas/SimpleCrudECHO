@@ -9,11 +9,11 @@ import (
 )
 
 type AuthController struct {
-	userService interfaces.UserServiceInterface
+	authService interfaces.AuthServiceInterface
 }
 
-func NewAuthController(userService interfaces.UserServiceInterface) *AuthController {
-	return &AuthController{userService: userService}
+func NewAuthController(authService interfaces.AuthServiceInterface) *AuthController {
+	return &AuthController{authService: authService}
 }
 
 func (a *AuthController) Login(ctx echo.Context) error {
@@ -22,7 +22,7 @@ func (a *AuthController) Login(ctx echo.Context) error {
 		return helpers.ResponseError(ctx, http.StatusBadRequest, "invalid data")
 	}
 
-	user, err := a.userService.Login(login.Email, login.Password)
+	user, err := a.authService.Login(login.Email, login.Password)
 	if err != nil {
 		return helpers.ResponseError(ctx, http.StatusUnauthorized, err.Error())
 	}
