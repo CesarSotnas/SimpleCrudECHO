@@ -1,4 +1,4 @@
-# 🛠️ GinEchoCrud
+# 🛠️ Go CRUD - Echo
 
 Sistema de autenticação e gerenciamento de usuários feito com Go, Echo Framework, SQLite e JWT.
 Organizado em camadas (Controller, Service, Repository) com injeção de dependência, resposta padrão e segurança via token.
