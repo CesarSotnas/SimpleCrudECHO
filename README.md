@@ -44,8 +44,7 @@ GinEchoCrud/ <br>
 
 ## 🧪 Testando com cURL/Postman
 
-### 🔑 Login
-
+Login
 ```
 curl --request POST http://localhost:1323/login \
 --header "Content-Type: application/json" \
@@ -55,17 +54,20 @@ curl --request POST http://localhost:1323/login \
 }'
 ```
 
+Endpoints
 ```
 curl --request GET http://localhost:1323/users \
 --header "Authorization: Bearer <seu_token_aqui>"
 ```
 
+Secret
 ```
 JWT_SECRET=sua_chave_super_secreta
 DEFAULT_PASSWORD=123456
 PORT=:1323
 ```
 
+## 🗄️ Migrations
 ```
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,8 +78,8 @@ CREATE TABLE users (
 );
 ```
 
+Inserção com senha hash
 ```
--- Inserção com senha hash
 INSERT INTO users (name, age, email, password)
 VALUES ("Carlos", 30, "carlos@email.com", "$2a$10$abc...xyz");
 ```
@@ -93,7 +95,7 @@ Documentar API com Swagger
 
 Adicionar testes de unidade e integração
 
-    Substituir SQLite por PostgreSQL para produção
+Substituir SQLite por PostgreSQL para produção
 
 🧑‍💻 Autor
 
