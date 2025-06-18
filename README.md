@@ -97,9 +97,8 @@ Adicionar testes de unidade e integração
 
 Substituir SQLite por PostgreSQL para produção
 
-🧑‍💻 Autor
 
-Desenvolvido por Cesar Santos
+🧑‍💻 Desenvolvido por Cesar Santos <br>
 Feito com foco em segurança, organização e aprendizado contínuo.
 
 
