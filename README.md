@@ -18,20 +18,20 @@ Organizado em camadas (Controller, Service, Repository) com injeção de depend�
 
 ## 🗂️ Estrutura do Projeto
 
-GinEchoCrud/
-├── cmd/ # Entrada de ferramentas auxiliares (ex: gerador de hash)
-├── dto/ # Data Transfer Objects (ex: LoginRequest)
-├── internal/
-│ ├── controller/ # Camada de controle (Echo handlers)
-│ ├── service/ # Regras de negócio (Services)
-│ ├── repository/ # Acesso ao banco (SQL, queries)
-│ ├── middleware/ # Middlewares (ex: JWT)
-│ ├── helpers/ # Funções auxiliares (JWT, respostas padrão)
-│ ├── interfaces/ # Contratos para injeção de dependência
-│ ├── models/ # Structs que representam entidades
-│ └── database/ # Inicialização e conexão com o banco SQLite
-├── .env # Variáveis de ambiente (não versionado)
-├── go.mod / go.sum # Gerenciador de dependências do Go
+GinEchoCrud/ <br>
+├── cmd/ # Entrada de ferramentas auxiliares (ex: gerador de hash) <br>
+├── dto/ # Data Transfer Objects (ex: LoginRequest) <br>
+├── internal/ <br>
+│ ├── controller/ # Camada de controle (Echo handlers) <br>
+│ ├── service/ # Regras de negócio (Services) <br>
+│ ├── repository/ # Acesso ao banco (SQL, queries) <br>
+│ ├── middleware/ # Middlewares (ex: JWT) <br>
+│ ├── helpers/ # Funções auxiliares (JWT, respostas padrão) <br>
+│ ├── interfaces/ # Contratos para injeção de dependência <br>
+│ ├── models/ # Structs que representam entidades <br>
+│ └── database/ # Inicialização e conexão com o banco SQLite <br>
+├── .env # Variáveis de ambiente (não versionado) <br>
+├── go.mod / go.sum # Gerenciador de dependências do Go <br>
 
 ---
 
