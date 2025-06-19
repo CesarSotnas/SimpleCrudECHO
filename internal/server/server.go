@@ -4,6 +4,7 @@ import (
 	"GinEchoCrud/internal/controller"
 	"GinEchoCrud/internal/middleware"
 	"GinEchoCrud/internal/repository"
+	"GinEchoCrud/internal/routes"
 	"GinEchoCrud/internal/service"
 	"github.com/labstack/echo/v4"
 )
@@ -21,11 +22,15 @@ func InitNewServer(port string) {
 	userService := service.NewUserService(userRepo)
 	userController := controller.NewUserController(userService)
 
-	e.POST("/login", authController.Login)
+	// auth middleware
+	e.POST(routes.Login, authController.Login)
 
-	protected := e.Group("/api")
+	// routes
+	protected := e.Group(routes.Prefix)
 	protected.Use(middleware.JWTMiddleware)
-	protected.GET("/users", userController.GetAllUsers)
+	protected.GET(routes.GetUsers, userController.GetAllUsers)
+	protected.GET(routes.GetUsersById, userController.GetUsersByID)
 
+	// server
 	e.Logger.Fatal(e.Start(port))
 }

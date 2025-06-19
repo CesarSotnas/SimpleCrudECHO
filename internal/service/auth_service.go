@@ -17,16 +17,16 @@ func NewAuthService(authRepository interfaces.AuthRepositoryInterface) interface
 	}
 }
 
-func (s *authService) Login(email, password string) (*models.User, error) {
-	user, err := s.authRepository.Login(email)
+func (s *authService) Login(email string, password string) (*models.Admin, error) {
+	admin, err := s.authRepository.Login(email)
 	if err != nil {
-		return nil, errors.New("user not found")
+		return nil, errors.New("invalid email or password")
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	err = bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(password))
 	if err != nil {
 		return nil, errors.New("wrong password")
 	}
 
-	return user, nil
+	return admin, nil
 }

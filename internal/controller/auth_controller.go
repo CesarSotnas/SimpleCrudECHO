@@ -32,5 +32,5 @@ func (a *AuthController) Login(ctx echo.Context) error {
 		return helpers.ResponseError(ctx, http.StatusInternalServerError, "error while creating token")
 	}
 
-	return helpers.ResponseSuccess(ctx, map[string]string{"token": token})
+	return helpers.ResponseSuccess(ctx, helpers.StatusOk, map[string]string{"token": token})
 }

@@ -5,6 +5,7 @@ import (
 	"GinEchoCrud/internal/interfaces"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"strconv"
 )
 
 type UserController struct {
@@ -16,11 +17,30 @@ func NewUserController(userService interfaces.UserServiceInterface) *UserControl
 }
 
 func (c *UserController) GetAllUsers(ctx echo.Context) error {
-	users, err := c.userService.GetAllUsers()
+	users, statusCode, err := c.userService.GetAllUsers()
 	if err != nil {
-		return helpers.ResponseError(ctx, http.StatusBadRequest, err.Error())
+		return helpers.ResponseError(ctx, statusCode, err.Error())
 
 	}
 
-	return helpers.ResponseSuccess(ctx, users)
+	return helpers.ResponseSuccess(ctx, statusCode, users)
+}
+
+func (c *UserController) GetUsersByID(ctx echo.Context) error {
+	idStr := ctx.Param("user_id")
+	if idStr == "" {
+		return helpers.ResponseError(ctx, http.StatusBadRequest, helpers.ErrMsgEmptyValue.Error())
+	}
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		return helpers.ResponseError(ctx, http.StatusBadRequest, helpers.ErrMsgIdMustBeANumber.Error())
+	}
+
+	users, statusCode, errResponse := c.userService.GetUsersByID(id)
+	if errResponse != nil {
+		return helpers.ResponseError(ctx, statusCode, errResponse.Error())
+	}
+
+	return helpers.ResponseSuccess(ctx, statusCode, users)
 }

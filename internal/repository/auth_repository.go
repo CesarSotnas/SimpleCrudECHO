@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	getUserByEmail = `SELECT id, name, age, email, password FROM users WHERE email = ?`
+	getUserByEmail = `SELECT id, email, password FROM admin WHERE email = ?`
 )
 
 type authRepository struct {
@@ -21,13 +21,13 @@ func NewAuthRepository() interfaces.AuthRepositoryInterface {
 	}
 }
 
-func (r *authRepository) Login(email string) (*models.User, error) {
+func (r *authRepository) Login(email string) (*models.Admin, error) {
 	row := r.db.QueryRow(getUserByEmail, email)
 
-	var user models.User
-	err := row.Scan(&user.ID, &user.Name, &user.Age, &user.Email, &user.Password)
+	var admin models.Admin
+	err := row.Scan(&admin.ID, &admin.Email, &admin.Password)
 	if err != nil {
 		return nil, err
 	}
-	return &user, nil
+	return &admin, nil
 }
