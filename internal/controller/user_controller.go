@@ -59,5 +59,5 @@ func (c *UserController) CreateUser(ctx echo.Context) error {
 		return helpers.ResponseError(ctx, statusCode, errResponse.Error())
 	}
 
-	return helpers.ResponseSuccess(ctx, statusCode, users)
+	return helpers.ResponseSuccess(ctx, helpers.StatusCreated, users)
 }
