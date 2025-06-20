@@ -10,4 +10,5 @@ var (
 	ErrMsgInvalidData      = errors.New("invalid data")
 	ErrMsgCreateTokenError = errors.New("error while creating token")
 	ErrMsgUnauthorized     = errors.New("unauthorized")
+	ErrMsgNoRowsAffected   = errors.New("no rows affected")
 )

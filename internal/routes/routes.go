@@ -3,6 +3,8 @@ package routes
 const (
 	Prefix       = "/api"
 	Login        = "/login"
-	GetUsers     = "/users"
-	GetUsersById = GetUsers + "/:user_id"
+	usersPath    = "/users"
+	GetUsers     = usersPath
+	GetUsersById = usersPath + "/:user_id"
+	CreateUsers  = usersPath
 )

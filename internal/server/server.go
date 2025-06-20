@@ -30,6 +30,7 @@ func InitNewServer(port string) {
 	protected.Use(middleware.JWTMiddleware)
 	protected.GET(routes.GetUsers, userController.GetAllUsers)
 	protected.GET(routes.GetUsersById, userController.GetUsersByID)
+	protected.POST(routes.CreateUsers, userController.CreateUser)
 
 	// server
 	e.Logger.Fatal(e.Start(port))

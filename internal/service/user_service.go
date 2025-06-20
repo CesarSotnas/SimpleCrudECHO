@@ -44,3 +44,16 @@ func (s *userService) GetUsersByID(ID int) (models.User, int, error) {
 
 	return users, statusCode, nil
 }
+
+func (s *userService) CreateUser(requestUser models.User) (models.User, int, error) {
+
+	responseData, statusCode, responseError := s.userRepository.CreateUser(requestUser)
+	if statusCode == 404 {
+		return responseData, statusCode, helpers.ErrMsgNotFound
+	}
+	if responseError != nil {
+		return responseData, statusCode, responseError
+	}
+
+	return responseData, statusCode, responseError
+}
