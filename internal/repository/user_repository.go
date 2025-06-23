@@ -11,6 +11,7 @@ import (
 const (
 	retrieveAllUsers  = `SELECT id, name, age, email FROM users`
 	retrieveUsersByID = `SELECT id, name, age, email FROM users WHERE id = ?`
+	createUser        = `INSERT INTO users (name, age, email) VALUES (?, ?, ?);`
 )
 
 type userRepository struct {
@@ -56,4 +57,25 @@ func (r *userRepository) GetUsersByID(ID int) (models.User, int, error) {
 	}
 
 	return users, helpers.StatusOk, nil
+}
+
+func (r *userRepository) CreateUser(requestUser models.User) (models.User, int, error) {
+	result, err := r.db.Exec(createUser, requestUser.Name, requestUser.Age, requestUser.Email)
+	if err != nil {
+		return models.User{}, helpers.StatusBadRequest, err
+	}
+
+	userID, errUser := result.LastInsertId()
+	if errUser != nil {
+		return models.User{}, helpers.StatusBadRequest, errUser
+	}
+
+	var user models.User
+
+	errQuery := r.db.QueryRow(retrieveUsersByID, userID).Scan(&user.ID, &user.Name, &user.Age, &user.Email)
+	if errQuery != nil {
+		return models.User{}, helpers.StatusBadRequest, errQuery
+	}
+
+	return user, helpers.StatusOk, nil
 }
