@@ -4,7 +4,9 @@ const (
 	Prefix       = "/api"
 	Login        = "/login"
 	usersPath    = "/users"
+	userIDParam  = "/:user_id"
 	GetUsers     = usersPath
-	GetUsersById = usersPath + "/:user_id"
+	GetUsersById = usersPath + userIDParam
 	CreateUsers  = usersPath
+	UpdateUsers  = usersPath + userIDParam
 )

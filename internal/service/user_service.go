@@ -20,7 +20,7 @@ func NewUserService(userRepository interfaces.UserRepositoryInterface) interface
 func (s *userService) GetAllUsers() ([]models.User, int, error) {
 	users, statusCode, err := s.userRepository.GetAllUsers()
 	if err != nil {
-		log.Fatal("error while retrieving users")
+		log.Fatal("error while retrieving users", err)
 		return nil, statusCode, err
 	}
 
@@ -56,4 +56,16 @@ func (s *userService) CreateUser(requestUser models.User) (models.User, int, err
 	}
 
 	return responseData, statusCode, responseError
+}
+
+func (s *userService) UpdateUser(userID int, user models.UserRequests) (int, error) {
+	statusCode, responseError := s.userRepository.UpdateUser(userID, user)
+	if statusCode == 404 {
+		return statusCode, helpers.ErrMsgNotFound
+	}
+	if responseError != nil {
+		return statusCode, responseError
+	}
+
+	return statusCode, responseError
 }

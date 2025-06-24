@@ -61,3 +61,25 @@ func (c *UserController) CreateUser(ctx echo.Context) error {
 
 	return helpers.ResponseSuccess(ctx, helpers.StatusCreated, users)
 }
+
+func (c *UserController) UpdateUser(ctx echo.Context) error {
+	strID := ctx.Param("user_id")
+
+	userID, err := strconv.Atoi(strID)
+	if err != nil {
+		return helpers.ResponseError(ctx, helpers.StatusBadRequest, err.Error())
+	}
+
+	var user models.UserRequests
+	errBind := ctx.Bind(&user)
+	if errBind != nil {
+		return helpers.ResponseError(ctx, helpers.StatusBadRequest, errBind.Error())
+	}
+
+	statusCode, errResponse := c.userService.UpdateUser(userID, user)
+	if statusCode >= 400 || errResponse != nil {
+		return helpers.ResponseError(ctx, statusCode, errResponse.Error())
+	}
+
+	return helpers.ResponseSuccess(ctx, statusCode, nil)
+}
