@@ -6,6 +6,8 @@ import (
 	"GinEchoCrud/internal/interfaces"
 	"GinEchoCrud/internal/models"
 	"database/sql"
+	"fmt"
+	"strings"
 )
 
 const (
@@ -78,4 +80,39 @@ func (r *userRepository) CreateUser(requestUser models.User) (models.User, int, 
 	}
 
 	return user, helpers.StatusOk, nil
+}
+
+func (r *userRepository) UpdateUser(userID int, user models.UserRequests) (int, error) {
+	var (
+		fields []string
+		args   []interface{}
+	)
+
+	if user.Name != nil {
+		fields = append(fields, "name = ?")
+		args = append(args, *user.Name)
+	}
+
+	if user.Age != nil {
+		fields = append(fields, "age = ?")
+		args = append(args, *user.Age)
+	}
+
+	if user.Email != nil {
+		fields = append(fields, "email = ?")
+		args = append(args, *user.Email)
+	}
+
+	if len(fields) == 0 {
+		return helpers.StatusBadRequest, helpers.ErrMsgNoFieldsToUpdate
+	}
+
+	query := fmt.Sprintf("UPDATE users SET %s WHERE id = ?", strings.Join(fields, ", "))
+	args = append(args, userID)
+
+	_, err := r.db.Exec(query, args...)
+	if err != nil {
+		return helpers.StatusBadRequest, err
+	}
+	return helpers.StatusUpdated, nil
 }

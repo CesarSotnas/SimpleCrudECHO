@@ -6,3 +6,9 @@ type User struct {
 	Age   int    `json:"age"`
 	Email string `json:"email"`
 }
+
+type UserRequests struct {
+	Name  *string `json:"name"`
+	Age   *int    `json:"age"`
+	Email *string `json:"email"`
+}
