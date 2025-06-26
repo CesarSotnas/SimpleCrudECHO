@@ -115,7 +115,7 @@ func (r *userRepository) UpdateUser(userID int, user models.UserRequests) (int, 
 	if err != nil {
 		return helpers.StatusBadRequest, err
 	}
-	return helpers.StatusUpdated, nil
+	return helpers.StatusCreated, nil
 }
 
 func (r *userRepository) DeleteUser(userID int) (int, error) {
@@ -123,5 +123,5 @@ func (r *userRepository) DeleteUser(userID int) (int, error) {
 	if err != nil {
 		return helpers.StatusBadRequest, err
 	}
-	return helpers.StatusOk, nil
+	return helpers.StatusNoContent, nil
 }

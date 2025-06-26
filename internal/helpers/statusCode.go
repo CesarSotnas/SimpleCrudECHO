@@ -6,5 +6,5 @@ const (
 	StatusNotFound     = 404
 	StatusBadRequest   = 400
 	StatusUnauthorized = 401
-	StatusUpdated      = 201
+	StatusNoContent    = 204
 )
