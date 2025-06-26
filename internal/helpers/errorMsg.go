@@ -13,4 +13,5 @@ var (
 	ErrMsgNoRowsAffected   = errors.New("no rows affected")
 	ErrMsgInvalidID        = errors.New("invalid id")
 	ErrMsgNoFieldsToUpdate = errors.New("no fields to update")
+	ErrMsgNoBadRequest     = errors.New("bad request")
 )

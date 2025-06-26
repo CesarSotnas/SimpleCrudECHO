@@ -69,3 +69,24 @@ func (s *userService) UpdateUser(userID int, user models.UserRequests) (int, err
 
 	return statusCode, responseError
 }
+
+func (s *userService) DeleteUser(userID int) (int, error) {
+	_, statusCodeResponse, errResponse := s.GetUsersByID(userID)
+	if statusCodeResponse == 404 {
+		return statusCodeResponse, helpers.ErrMsgNotFound
+	}
+
+	if errResponse != nil {
+		return statusCodeResponse, errResponse
+	}
+
+	statusCode, responseError := s.userRepository.DeleteUser(userID)
+	if statusCode == 404 {
+		return statusCode, helpers.ErrMsgNotFound
+	}
+	if responseError != nil {
+		return statusCode, responseError
+	}
+
+	return statusCode, responseError
+}

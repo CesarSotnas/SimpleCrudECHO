@@ -32,6 +32,7 @@ func InitNewServer(port string) {
 	protected.GET(routes.GetUsersById, userController.GetUsersByID)
 	protected.POST(routes.CreateUsers, userController.CreateUser)
 	protected.PUT(routes.UpdateUsers, userController.UpdateUser)
+	protected.DELETE(routes.DeleteUsers, userController.DeleteUser)
 
 	// server
 	e.Logger.Fatal(e.Start(port))

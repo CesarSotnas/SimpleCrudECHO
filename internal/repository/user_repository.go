@@ -14,6 +14,7 @@ const (
 	retrieveAllUsers  = `SELECT id, name, age, email FROM users`
 	retrieveUsersByID = `SELECT id, name, age, email FROM users WHERE id = ?`
 	createUser        = `INSERT INTO users (name, age, email) VALUES (?, ?, ?);`
+	deleteUser        = `DELETE FROM users WHERE id = ?`
 )
 
 type userRepository struct {
@@ -115,4 +116,12 @@ func (r *userRepository) UpdateUser(userID int, user models.UserRequests) (int, 
 		return helpers.StatusBadRequest, err
 	}
 	return helpers.StatusUpdated, nil
+}
+
+func (r *userRepository) DeleteUser(userID int) (int, error) {
+	_, err := r.db.Exec(deleteUser, userID)
+	if err != nil {
+		return helpers.StatusBadRequest, err
+	}
+	return helpers.StatusOk, nil
 }

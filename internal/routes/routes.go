@@ -9,4 +9,5 @@ const (
 	GetUsersById = usersPath + userIDParam
 	CreateUsers  = usersPath
 	UpdateUsers  = usersPath + userIDParam
+	DeleteUsers  = usersPath + userIDParam
 )
