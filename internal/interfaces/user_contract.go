@@ -9,6 +9,7 @@ type UserServiceInterface interface {
 	GetUsersByID(ID int) (models.User, int, error)
 	CreateUser(requestUser models.User) (models.User, int, error)
 	UpdateUser(userID int, user models.UserRequests) (int, error)
+	DeleteUser(userID int) (int, error)
 }
 
 type UserRepositoryInterface interface {
@@ -16,4 +17,5 @@ type UserRepositoryInterface interface {
 	GetUsersByID(ID int) (models.User, int, error)
 	CreateUser(requestUser models.User) (models.User, int, error)
 	UpdateUser(userID int, user models.UserRequests) (int, error)
+	DeleteUser(userID int) (int, error)
 }
